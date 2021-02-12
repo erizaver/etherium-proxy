@@ -22,7 +22,7 @@ func TestEthService_GetBlockByNumber(t *testing.T) {
 		glog.Fatal("unable to start user server", err)
 	}
 	mockEthCli := new(mocks.EthClient)
-	mockEthCli.On("GetBlockByNumber", mock.AnythingOfType("string")).Once().Return(model.Block{
+	mockEthCli.On("GetBlockByNumber", mock.AnythingOfType("string")).Once().Return(&model.Block{
 		Hash:   "testHash",
 		Number: "0x12",
 	}, nil)
