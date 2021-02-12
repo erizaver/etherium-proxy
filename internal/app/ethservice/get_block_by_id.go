@@ -68,7 +68,7 @@ func (s *EthService) getBlockAndUpdateCache(blockId string) (*model.Block, error
 }
 
 func (s *EthService) getBlockFromCache(blockID string) (*model.Block, bool) {
-	block, ok := s.Cache.Get(blockID)
+	block, ok := s.Cache.Get(strings.ToLower(blockID))
 	if !ok {
 		return nil, false
 	}
