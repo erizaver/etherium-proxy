@@ -10,6 +10,8 @@ Handler `/v1/block/{block_id}/txs/{tx_id}` will get transaction by block ID(chec
 and transaction index or hash. You can use hex or numerical numbers to specify index. If block does not contain 
 such index or transaction hash, it will return an error message.
 
+You can find some examples in `example` folder.
+
 If you want to add something to this service, you have to add a new handler to `etherium-proxy.proto` and use 
 `make generate` to generate new protobuf files. After that you can modify logic.
 
