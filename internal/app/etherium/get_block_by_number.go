@@ -12,15 +12,15 @@ import (
 	"github.com/erizaver/etherium_proxy/pkg/api"
 )
 
-const latestBlockID = "latest"
+const latestblockId = "latest"
 
 //GetBlockByNumber will return proto structure with ethereum block by its id
 func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumberRequest) (*api.GetBlockByNumberResponse, error) {
-	if req.GetBlockId() == "" {
-		return nil, errors.New("block ID can`t be empty")
+	if req.GetblockId() == "" {
+		return nil, errors.New("block Id can`t be empty")
 	}
 
-	block, err := e.EthService.GetBlockByNumber(e.getSafeBlockId(req.GetBlockId()))
+	block, err := e.EthService.GetBlockByNumber(e.getSafeblockId(req.GetblockId()))
 	if err != nil {
 		return nil, errors.Wrap(err, "unable to get block")
 	}
@@ -30,19 +30,19 @@ func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumber
 	}, nil
 }
 
-//getSafeBlockId will return block number in Hex(since cloudflare uses hex)
-func (e *EthApi) getSafeBlockId(rawBlockID string) (safeBlockId string) {
-	if strings.EqualFold(rawBlockID, latestBlockID) {
-		return latestBlockID
+//getSafeblockId will return block number in Hex(since cloudflare uses hex)
+func (e *EthApi) getSafeblockId(rawblockId string) (safeblockId string) {
+	if strings.EqualFold(rawblockId, latestblockId) {
+		return latestblockId
 
-	} else if strings.HasPrefix(rawBlockID, "0x") {
-		_, err := strconv.ParseInt(strings.Replace(rawBlockID, "0x", "", -1), 16, 64)
+	} else if strings.HasPrefix(rawblockId, "0x") {
+		_, err := strconv.ParseInt(strings.Replace(rawblockId, "0x", "", -1), 16, 64)
 		if err != nil {
 			return ""
 		}
-		return rawBlockID
+		return rawblockId
 
-	} else if id, err := strconv.ParseInt(rawBlockID, 10, 64); err == nil {
+	} else if id, err := strconv.ParseInt(rawblockId, 10, 64); err == nil {
 		hexId := "0x" + strconv.FormatInt(id, 16)
 		return hexId
 
@@ -55,7 +55,7 @@ func (e *EthApi) getSafeBlockId(rawBlockID string) (safeBlockId string) {
 func (e *EthApi) WarmUpLatestBlockNumber() {
 	ctx := context.Background()
 	req := &api.GetBlockByNumberRequest{
-		BlockId: latestBlockID,
+		blockId: latestblockId,
 	}
 
 	//We can update every 30 seconds to get always the best last block counter and keep all info up-to-date

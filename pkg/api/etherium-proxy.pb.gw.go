@@ -47,7 +47,7 @@ func request_EthService_GetBlockByNumber_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_id")
 	}
 
-	protoReq.BlockId, err = runtime.String(val)
+	protoReq.blockId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_id", err)
 	}
@@ -73,7 +73,7 @@ func local_request_EthService_GetBlockByNumber_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_id")
 	}
 
-	protoReq.BlockId, err = runtime.String(val)
+	protoReq.blockId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_id", err)
 	}
@@ -99,7 +99,7 @@ func request_EthService_GetTx_0(ctx context.Context, marshaler runtime.Marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_id")
 	}
 
-	protoReq.BlockId, err = runtime.String(val)
+	protoReq.blockId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_id", err)
 	}
@@ -109,7 +109,7 @@ func request_EthService_GetTx_0(ctx context.Context, marshaler runtime.Marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tx_id")
 	}
 
-	protoReq.TxId, err = runtime.String(val)
+	protoReq.txId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tx_id", err)
 	}
@@ -135,7 +135,7 @@ func local_request_EthService_GetTx_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_id")
 	}
 
-	protoReq.BlockId, err = runtime.String(val)
+	protoReq.blockId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_id", err)
 	}
@@ -145,7 +145,7 @@ func local_request_EthService_GetTx_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tx_id")
 	}
 
-	protoReq.TxId, err = runtime.String(val)
+	protoReq.txId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tx_id", err)
 	}

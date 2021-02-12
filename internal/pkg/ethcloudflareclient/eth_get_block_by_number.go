@@ -17,12 +17,12 @@ const (
 )
 
 //GetBlockByNumber will get block from cloudflare platform
-func (c *EthCloudflareClient) GetBlockByNumber(blockID string) (*model.Block, error) {
+func (c *EthCloudflareClient) GetBlockByNumber(blockId string) (*model.Block, error) {
 	reqBody := GetBlockByNumberClientRequest{
 		JsonRpc: "2.0",
 		Method:  GetBlockMethodName,
 		Params: []interface{}{
-			blockID,
+			blockId,
 			true,
 		},
 		Id: 1,

@@ -15,5 +15,5 @@ func NewEthApi(es EthService) *EthApi {
 }
 
 type EthService interface {
-	GetBlockByNumber(hexBlockId string) (*model.Block, error)
+	GetBlockByNumber(hexblockId string) (*model.Block, error)
 }

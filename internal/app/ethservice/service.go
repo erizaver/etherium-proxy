@@ -21,5 +21,5 @@ func NewEthService(ec EthClient, c *lru.Cache) *EthService {
 }
 
 type EthClient interface {
-	GetBlockByNumber(blockID string) (*model.Block, error)
+	GetBlockByNumber(blockId string) (*model.Block, error)
 }

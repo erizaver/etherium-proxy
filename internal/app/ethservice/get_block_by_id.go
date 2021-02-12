@@ -16,7 +16,7 @@ const uncachableBlocksThreshold = 25
 // we can`t cache younger blocks since they are not trustworthy
 func (s *EthService) GetBlockByNumber(blockId string) (*model.Block, error) {
 	if blockId == "" {
-		return nil, errors.New("block ID can`t be empty")
+		return nil, errors.New("block Id can`t be empty")
 	}
 
 	if blockId != "latest"{
@@ -36,7 +36,7 @@ func (s *EthService) GetBlockByNumber(blockId string) (*model.Block, error) {
 
 //getBlockAndUpdateCache will get block from external API and update cache if cacheUpdate is true
 func (s *EthService) getBlockAndUpdateCache(blockId string) (*model.Block, error) {
-	block, err := s.EthClient.GetBlockByNumber(blockId)
+	block, err := s.EthClient.GetBlockByNumber(strings.ToLower(blockId))
 	if err != nil {
 		return nil, errors.Wrap(err, "can`t get block from client")
 	}
@@ -46,12 +46,12 @@ func (s *EthService) getBlockAndUpdateCache(blockId string) (*model.Block, error
 		block.FastTransactions[v.Hash] = v
 	}
 
-	numBlockId, err := strconv.ParseInt(strings.Replace(block.Number, "0x", "", -1), 16, 64)
+	numblockId, err := strconv.ParseInt(strings.Replace(block.Number, "0x", "", -1), 16, 64)
 	if err != nil {
 		return nil, errors.New("unable to parse hex block id to int")
 	}
 
-	if s.BlockCounter-numBlockId > uncachableBlocksThreshold {
+	if s.BlockCounter-numblockId > uncachableBlocksThreshold {
 		s.Cache.Add(block.Number, *block)
 	}
 
@@ -67,8 +67,8 @@ func (s *EthService) getBlockAndUpdateCache(blockId string) (*model.Block, error
 	return block, nil
 }
 
-func (s *EthService) getBlockFromCache(blockID string) (*model.Block, bool) {
-	block, ok := s.Cache.Get(strings.ToLower(blockID))
+func (s *EthService) getBlockFromCache(blockId string) (*model.Block, bool) {
+	block, ok := s.Cache.Get(strings.ToLower(blockId))
 	if !ok {
 		return nil, false
 	}

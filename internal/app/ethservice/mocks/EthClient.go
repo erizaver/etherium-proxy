@@ -12,13 +12,13 @@ type EthClient struct {
 	mock.Mock
 }
 
-// GetBlockByNumber provides a mock function with given fields: blockID
-func (_m *EthClient) GetBlockByNumber(blockID string) (*model.Block, error) {
-	ret := _m.Called(blockID)
+// GetBlockByNumber provides a mock function with given fields: blockId
+func (_m *EthClient) GetBlockByNumber(blockId string) (*model.Block, error) {
+	ret := _m.Called(blockId)
 
 	var r0 *model.Block
 	if rf, ok := ret.Get(0).(func(string) *model.Block); ok {
-		r0 = rf(blockID)
+		r0 = rf(blockId)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*model.Block)
@@ -27,7 +27,7 @@ func (_m *EthClient) GetBlockByNumber(blockID string) (*model.Block, error) {
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(string) error); ok {
-		r1 = rf(blockID)
+		r1 = rf(blockId)
 	} else {
 		r1 = ret.Error(1)
 	}
