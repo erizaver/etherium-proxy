@@ -17,7 +17,6 @@ import (
 	"github.com/erizaver/etherium_proxy/pkg/api"
 )
 
-//we can move this to config, but i was running low on time :)
 const (
 	timeout               = 5 * time.Second
 	getBlockCloudflareUrl = "https://cloudflare-eth.com"
@@ -44,7 +43,7 @@ func NewApp() *Application {
 	httpCli := &http.Client{Timeout: timeout}
 	cache, err := lru.New(cacheSize)
 	if err != nil {
-		glog.Fatal("unable to start user server", err)
+		glog.Fatal("unable to start cache", err)
 	}
 
 	app.EthCloudflareClient = ethcloudflareclient.NewEthCloudflareClient(httpCli, getBlockCloudflareUrl)
@@ -60,7 +59,7 @@ func NewApp() *Application {
 func (a *Application) Run(ctx context.Context) error {
 	err := api.RegisterEthServiceHandlerServer(ctx, a.Mux, a.EthApi)
 	if err != nil {
-		return errors.Wrap(err, "unable to start user server")
+		return errors.Wrap(err, "unable to start server")
 	}
 
 	api.RegisterEthServiceServer(a.GrpcServer, a.EthApi)
