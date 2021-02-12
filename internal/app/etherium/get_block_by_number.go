@@ -8,28 +8,29 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 
+	"github.com/erizaver/etherium_proxy/internal/pkg/model"
 	"github.com/erizaver/etherium_proxy/pkg/api"
 )
 
 const latestBlockID = "latest"
 
-func (e *EthFacade) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumberRequest) (*api.GetBlockByNumberResponse, error) {
+func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumberRequest) (*api.GetBlockByNumberResponse, error) {
 	if req.GetBlockId() == "" {
 		return nil, errors.New("block ID can`t be empty")
 	}
 
-	block, err := e.EthService.GetBlockByNumber(e.getHexBlockId(req.GetBlockId()))
+	block, err := e.EthService.GetBlockByNumber(e.getSafeBlockId(req.GetBlockId()))
 	if err != nil {
 		return nil, errors.Wrap(err, "unable to get block")
 	}
 
 	return &api.GetBlockByNumberResponse{
-		Block: castModelBlockToPb(block),
+		Block: model.CastModelBlockToPb(block),
 	}, nil
 }
 
-//getHexBlockId will return block number in Hex(since cloudflare uses hex)
-func (e *EthFacade) getHexBlockId(rawBlockID string) (hexBlockId string) {
+//getSafeBlockId will return block number in Hex(since cloudflare uses hex)
+func (e *EthApi) getSafeBlockId(rawBlockID string) (safeBlockId string) {
 	if strings.EqualFold(rawBlockID, latestBlockID) {
 		return latestBlockID
 
@@ -50,7 +51,7 @@ func (e *EthFacade) getHexBlockId(rawBlockID string) (hexBlockId string) {
 }
 
 // Not sure if we need this, need more info about API usability, if latest block will be used less then in every 30 seconds, we dont need this
-func (e *EthFacade) WarmUpLatestBlockNumber() {
+func (e *EthApi) WarmUpLatestBlockNumber() {
 	ctx := context.Background()
 	req := &api.GetBlockByNumberRequest{
 		BlockId: latestBlockID,

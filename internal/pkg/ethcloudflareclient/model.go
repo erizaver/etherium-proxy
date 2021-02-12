@@ -12,5 +12,5 @@ type GetBlockByNumberClientRequest struct {
 type GetBlockClientResponse struct {
 	JsonRpc string      `json:"jsonrpc"`
 	Id      int         `json:"id"`
-	Result  model.Block `json:"result"`
+	Result  *model.Block `json:"result"`
 }

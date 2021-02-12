@@ -7,17 +7,18 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/erizaver/etherium_proxy/internal/pkg/model"
 	"github.com/erizaver/etherium_proxy/pkg/api"
 )
 
-func (e *EthFacade) GetTx(ctx context.Context, req *api.GetTxRequest) (*api.GetTxResponse, error) {
+func (e *EthApi) GetTx(ctx context.Context, req *api.GetTxRequest) (*api.GetTxResponse, error) {
 	if req.GetBlockId() == "" || req.GetTxId() == "" {
 		return nil, errors.New("blockId or txID can`t be empty")
 	}
 
 	index, isIndex := isIndex(req.GetTxId())
 
-	blockId := e.getHexBlockId(req.GetBlockId())
+	blockId := e.getSafeBlockId(req.GetBlockId())
 	if blockId == "" {
 		return nil, errors.New("unable to parse block ID")
 	}
@@ -32,13 +33,13 @@ func (e *EthFacade) GetTx(ctx context.Context, req *api.GetTxRequest) (*api.GetT
 			return nil, errors.New("block does not contain this transaction index")
 		}
 		return &api.GetTxResponse{
-			Transaction: castModelTransactionToPb(&block.Transactions[index]),
+			Transaction: model.CastModelTransactionToPb(block.Transactions[index]),
 		}, nil
 	} else {
 		tx, ok := block.FastTransactions[req.GetTxId()]
 		if ok {
 			return &api.GetTxResponse{
-				Transaction: castModelTransactionToPb(&tx),
+				Transaction: model.CastModelTransactionToPb(tx),
 			}, nil
 		}
 	}

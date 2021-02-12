@@ -29,7 +29,7 @@ generate:
 
 .PHONY: generateMocks
 generateMocks:
-	mockery --dir ./internal/pkg/ethservice --output ./internal/pkg/ethservice/mocks --name=EthClient
+	mockery --dir ./internal/app/ethservice --output ./internal/app/ethservice/mocks --name=EthClient
 
 .PHONY: lint
 lint:

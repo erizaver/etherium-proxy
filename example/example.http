@@ -20,3 +20,9 @@ POST http://localhost:8080/v1/block/latest/txs/1
 Content-Type: application/json
 
 {}
+
+###
+POST http://localhost:8080/v1/block/0xB4B16C/txs/0xb0ced4ca9d8880b959afb43872efc3561acff28830739a2ed3fbe9f2b58d12fd
+Content-Type: application/json
+
+{}

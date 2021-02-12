@@ -35,12 +35,12 @@ func TestEthFacade_getHexBlockId(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			e := &EthFacade{
+			e := &EthApi{
 				EthService:                    tt.fields.EthService,
 				UnimplementedEthServiceServer: tt.fields.UnimplementedEthServiceServer,
 			}
-			if gotHexBlockId := e.getHexBlockId(tt.args.rawBlockID); gotHexBlockId != tt.wantHexBlockId {
-				t.Errorf("getHexBlockId() = %v, want %v", gotHexBlockId, tt.wantHexBlockId)
+			if gotHexBlockId := e.getSafeBlockId(tt.args.rawBlockID); gotHexBlockId != tt.wantHexBlockId {
+				t.Errorf("getSafeBlockId() = %v, want %v", gotHexBlockId, tt.wantHexBlockId)
 			}
 		})
 	}
