@@ -1,0 +1,22 @@
+POST http://localhost:8080/v1/block/50000/txs/1
+Content-Type: application/json
+
+{}
+
+###
+POST http://localhost:8080/v1/block/500
+Content-Type: application/json
+
+{}
+
+###
+POST http://localhost:8080/v1/block/latest
+Content-Type: application/json
+
+{}
+
+###
+POST http://localhost:8080/v1/block/latest/txs/1
+Content-Type: application/json
+
+{}
