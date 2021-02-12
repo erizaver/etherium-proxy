@@ -14,6 +14,7 @@ import (
 
 const latestBlockID = "latest"
 
+//GetBlockByNumber will return proto structure with ethereum block by its id
 func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumberRequest) (*api.GetBlockByNumberResponse, error) {
 	if req.GetBlockId() == "" {
 		return nil, errors.New("block ID can`t be empty")
