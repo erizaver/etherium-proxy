@@ -31,7 +31,7 @@ type GetBlockByNumberRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	blockId string `protobuf:"bytes,1,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
+	BlockId string `protobuf:"bytes,1,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
 }
 
 func (x *GetBlockByNumberRequest) Reset() {
@@ -66,9 +66,9 @@ func (*GetBlockByNumberRequest) Descriptor() ([]byte, []int) {
 	return file_api_etherium_proxy_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetBlockByNumberRequest) GetblockId() string {
+func (x *GetBlockByNumberRequest) GetBlockId() string {
 	if x != nil {
-		return x.blockId
+		return x.BlockId
 	}
 	return ""
 }
@@ -125,8 +125,8 @@ type GetTxRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	blockId string `protobuf:"bytes,1,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
-	txId    string `protobuf:"bytes,2,opt,name=tx_id,json=txId,proto3" json:"tx_id,omitempty"`
+	BlockId string `protobuf:"bytes,1,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
+	TxId    string `protobuf:"bytes,2,opt,name=tx_id,json=txId,proto3" json:"tx_id,omitempty"`
 }
 
 func (x *GetTxRequest) Reset() {
@@ -161,16 +161,16 @@ func (*GetTxRequest) Descriptor() ([]byte, []int) {
 	return file_api_etherium_proxy_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetTxRequest) GetblockId() string {
+func (x *GetTxRequest) GetBlockId() string {
 	if x != nil {
-		return x.blockId
+		return x.BlockId
 	}
 	return ""
 }
 
-func (x *GetTxRequest) GettxId() string {
+func (x *GetTxRequest) GetTxId() string {
 	if x != nil {
-		return x.txId
+		return x.TxId
 	}
 	return ""
 }

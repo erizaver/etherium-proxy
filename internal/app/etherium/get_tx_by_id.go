@@ -12,13 +12,13 @@ import (
 )
 
 func (e *EthApi) GetTx(ctx context.Context, req *api.GetTxRequest) (*api.GetTxResponse, error) {
-	if req.GetblockId() == "" || req.GettxId() == "" {
+	if req.GetBlockId() == "" || req.GetTxId() == "" {
 		return nil, errors.New("blockId or txId can`t be empty")
 	}
 
-	index, isIndex := isIndex(req.GettxId())
+	index, isIndex := isIndex(req.GetTxId())
 
-	blockId := e.getSafeblockId(req.GetblockId())
+	blockId := e.getSafeblockId(req.GetBlockId())
 	if blockId == "" {
 		return nil, errors.New("unable to parse block Id")
 	}
@@ -36,7 +36,7 @@ func (e *EthApi) GetTx(ctx context.Context, req *api.GetTxRequest) (*api.GetTxRe
 			Transaction: model.CastModelTransactionToPb(block.Transactions[index]),
 		}, nil
 	} else {
-		tx, ok := block.FastTransactions[req.GettxId()]
+		tx, ok := block.FastTransactions[req.GetTxId()]
 		if ok {
 			return &api.GetTxResponse{
 				Transaction: model.CastModelTransactionToPb(tx),

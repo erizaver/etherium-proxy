@@ -16,11 +16,11 @@ const latestblockId = "latest"
 
 //GetBlockByNumber will return proto structure with ethereum block by its id
 func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumberRequest) (*api.GetBlockByNumberResponse, error) {
-	if req.GetblockId() == "" {
+	if req.GetBlockId() == "" {
 		return nil, errors.New("block Id can`t be empty")
 	}
 
-	block, err := e.EthService.GetBlockByNumber(e.getSafeblockId(req.GetblockId()))
+	block, err := e.EthService.GetBlockByNumber(e.getSafeblockId(req.GetBlockId()))
 	if err != nil {
 		return nil, errors.Wrap(err, "unable to get block")
 	}
@@ -55,7 +55,7 @@ func (e *EthApi) getSafeblockId(rawblockId string) (safeblockId string) {
 func (e *EthApi) WarmUpLatestBlockNumber() {
 	ctx := context.Background()
 	req := &api.GetBlockByNumberRequest{
-		blockId: latestblockId,
+		BlockId: latestblockId,
 	}
 
 	//We can update every 30 seconds to get always the best last block counter and keep all info up-to-date
