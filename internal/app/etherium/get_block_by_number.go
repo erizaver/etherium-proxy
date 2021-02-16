@@ -12,7 +12,7 @@ import (
 	"github.com/erizaver/etherium_proxy/pkg/api"
 )
 
-const latestblockId = "latest"
+const latestBlockId = "latest"
 
 //GetBlockByNumber will return proto structure with ethereum block by its id
 func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumberRequest) (*api.GetBlockByNumberResponse, error) {
@@ -20,7 +20,7 @@ func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumber
 		return nil, errors.New("block Id can`t be empty")
 	}
 
-	block, err := e.EthService.GetBlockByNumber(e.getSafeblockId(req.GetBlockId()))
+	block, err := e.EthService.GetBlockByNumber(e.getSafeBlockId(req.GetBlockId()))
 	if err != nil {
 		return nil, errors.Wrap(err, "unable to get block")
 	}
@@ -30,19 +30,19 @@ func (e *EthApi) GetBlockByNumber(ctx context.Context, req *api.GetBlockByNumber
 	}, nil
 }
 
-//getSafeblockId will return block number in Hex(since cloudflare uses hex)
-func (e *EthApi) getSafeblockId(rawblockId string) (safeblockId string) {
-	if strings.EqualFold(rawblockId, latestblockId) {
-		return latestblockId
+//getSafeBlockId will return block number in Hex(since cloudflare uses hex)
+func (e *EthApi) getSafeBlockId(rawBlockId string) string {
+	if strings.EqualFold(rawBlockId, latestBlockId) {
+		return latestBlockId
 
-	} else if strings.HasPrefix(rawblockId, "0x") {
-		_, err := strconv.ParseInt(strings.Replace(rawblockId, "0x", "", -1), 16, 64)
+	} else if strings.HasPrefix(rawBlockId, "0x") {
+		_, err := strconv.ParseInt(strings.Replace(rawBlockId, "0x", "", -1), 16, 64)
 		if err != nil {
 			return ""
 		}
-		return rawblockId
+		return rawBlockId
 
-	} else if id, err := strconv.ParseInt(rawblockId, 10, 64); err == nil {
+	} else if id, err := strconv.ParseInt(rawBlockId, 10, 64); err == nil {
 		hexId := "0x" + strconv.FormatInt(id, 16)
 		return hexId
 
@@ -55,7 +55,7 @@ func (e *EthApi) getSafeblockId(rawblockId string) (safeblockId string) {
 func (e *EthApi) WarmUpLatestBlockNumber() {
 	ctx := context.Background()
 	req := &api.GetBlockByNumberRequest{
-		BlockId: latestblockId,
+		BlockId: latestBlockId,
 	}
 
 	//We can update every 30 seconds to get always the best last block counter and keep all info up-to-date

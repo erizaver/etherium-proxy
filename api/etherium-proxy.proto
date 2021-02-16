@@ -7,13 +7,13 @@ import "google/api/annotations.proto";
 service EthService {
   rpc GetBlockByNumber(GetBlockByNumberRequest) returns (GetBlockByNumberResponse) {
     option (google.api.http) = {
-      post: "/v1/block/{block_id}"
+      get: "/v1/block/{block_id}"
     };
   }
 
   rpc GetTx(GetTxRequest) returns (GetTxResponse) {
     option (google.api.http) = {
-      post: "/v1/block/{block_id}/txs/{tx_id}"
+      get: "/v1/block/{block_id}/txs/{tx_id}"
     };
   }
 }

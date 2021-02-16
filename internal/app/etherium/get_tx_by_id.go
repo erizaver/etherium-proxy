@@ -18,7 +18,7 @@ func (e *EthApi) GetTx(ctx context.Context, req *api.GetTxRequest) (*api.GetTxRe
 
 	index, isIndex := isIndex(req.GetTxId())
 
-	blockId := e.getSafeblockId(req.GetBlockId())
+	blockId := e.getSafeBlockId(req.GetBlockId())
 	if blockId == "" {
 		return nil, errors.New("unable to parse block Id")
 	}
